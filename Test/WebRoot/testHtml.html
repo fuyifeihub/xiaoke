@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>testHtml.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html;" charset="UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+    <script src="js/jquery.min.js"></script>
+  <script type="text/javascript">
+  function login(){
+	  var username=document.getElementById("username").value;
+	  var pass=document.getElementById("pass").value;
+	  console.log(username+"--"+pass);
+	  $.ajax({
+			url :'http://192.168.0.70/Test/test/login.do',
+			method : 'post',
+			data : {
+				"username" : username,
+				"pass" : pass
+			},
+			dataType : "text",
+			async:false, 
+			success : function(ret) {
+				if(ret=="ture"){
+					  $.ajax({
+							url :'http://192.168.0.70/Test/test/getusername.do',
+							method : 'post',
+							data : {},
+							dataType : "text",
+							async:false, 
+							success : function(ret) {
+								alert(ret);
+								
+							}
+					  })	
+				}else{
+					alert(ret);
+				}
+			
+			}
+	  })
+  }
+  </script>
+  </head>
+  
+  <body>
+   	<input id='username' >
+   	<br>
+   	<input type="password"  id='pass' >
+   	<br>
+   	<input type="button" value="登录" onclick="login();" >
+  </body>
+</html>
